@@ -1,11 +1,9 @@
 {
-  "name": "test_html",
-  "version": "0.1.0",
+  "name": "@theultragrey/vue-datatables",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build --target lib --name vueDatatable ./src/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
