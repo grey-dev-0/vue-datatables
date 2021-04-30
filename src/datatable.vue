@@ -13,16 +13,12 @@
 </template>
 
 <script>
+var $ = window.$;
+
 export default {
   props: {
     datatableId: {
       type: String
-    },
-    columns: {
-      type: Array,
-      default: function(){
-        return [];
-      }
     },
     url: {
       type: String,
@@ -50,10 +46,15 @@ export default {
   },
   data: function(){
     return {
+      columns: [],
       dataTable: null
     };
   },
   methods: {
+    setup: function(){
+      if(this.$children.length == this.columns.length)
+        this.init();
+    },
     init: function(){
       if(this.dataTable !== null)
         this.dataTable.destroy();
