@@ -1,14 +1,16 @@
 <template>
   <div class="list-group list-group-flush">
     <div class="list-group-item bg-blue-10">
-      <div class="row" v-for="row in filterRows">
-        <filter-input v-for="filter in row" v-if="!filter.ui" :key="filter.name" :label="filter.label" :name="filter.name" :type="filter.type"
-                      :values="filter.values" :options="filter.options" @filter="addFilter"></filter-input>
-        <div class="col" v-else-if="filter.ui == 'filler-col'"></div>
-        <div class="col" v-else-if="filter.ui == 'clear-btn'">
-          <label for="clear-filter"><br/></label><br/>
-          <div id="clear-filter" @click="clearFilter" class="btn btn-outline-info btn-block"><i class="material-icons" style="margin-top:-5px">clear_all</i> Clear Filters</div>
-        </div>
+      <div class="row" v-for="(row, i) in filterRows" :key="i">
+        <template v-for="filter in row" :key="filter.name">
+          <filter-input v-if="!filter.ui" :label="filter.label" :name="filter.name" :type="filter.type"
+                        :values="filter.values" :options="filter.options" @filter="addFilter"></filter-input>
+          <div class="col" v-else-if="filter.ui == 'filler-col'"></div>
+          <div class="col" v-else-if="filter.ui == 'clear-btn'">
+            <label for="clear-filter"><br/></label><br/>
+            <div id="clear-filter" @click="clearFilter" class="btn btn-outline-info btn-block"><i class="material-icons" style="margin-top:-5px">clear_all</i> Clear Filters</div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
