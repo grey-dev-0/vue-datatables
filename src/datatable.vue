@@ -16,6 +16,7 @@
 var $ = window.$;
 
 export default {
+  name: 'VueDatatable',
   props: {
     datatableId: {
       type: String
@@ -51,10 +52,6 @@ export default {
     };
   },
   methods: {
-    setup: function(){
-      if(this.$children.length == this.columns.length)
-        this.init();
-    },
     init: function(){
       if(this.dataTable !== null)
         this.dataTable.destroy();

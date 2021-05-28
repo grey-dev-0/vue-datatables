@@ -32,7 +32,11 @@ export default {
       default: undefined
     },
     defaultContent: String,
-    className: String
+    className: String,
+    last: {
+      type: Boolean,
+      default: false
+    }
   },
   mounted(){
     var column = {};
@@ -41,7 +45,8 @@ export default {
       if(this.$props[props[i]] !== undefined)
         column[props[i]] = this.$props[props[i]];
     this.$parent.columns.push(column);
-    this.$parent.setup();
+    if(this.last)
+      this.$parent.init();
   }
 }
 </script>
