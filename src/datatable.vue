@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-hover table-responsive" :id="datatableId">
+  <table class="table table-hover table-responsive d-table" :id="datatableId">
     <thead>
     <tr>
       <slot></slot>
@@ -68,7 +68,7 @@ export default {
         ajax: {
           url: this.url,
           type: 'POST',
-          data:this.ajaxData,
+          data: this.ajaxData,
           complete: this.ajaxComplete
         }
       });

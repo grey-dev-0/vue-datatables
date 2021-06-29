@@ -1,14 +1,11 @@
 <template>
-  <th v-html="label"></th>
+  <th><slot></slot></th>
 </template>
 
 <script>
 export default {
+  name: 'DtColumn',
   props: {
-    label: {
-      type: String,
-      required: true
-    },
     data: [String, Function],
     render: [String, Function],
     name: {

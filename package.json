@@ -18,7 +18,8 @@
     "eslint": "^7.26.0",
     "eslint-plugin-vue": "^7.9.0",
     "sass": "^1.32.13",
-    "sass-loader": "^10.2.0"
+    "sass-loader": "^10.2.0",
+    "mitt": "^3.0.0"
   },
   "eslintConfig": {
     "root": true,
