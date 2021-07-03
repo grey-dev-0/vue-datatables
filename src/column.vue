@@ -1,8 +1,13 @@
 <template>
-  <th><slot></slot></th>
+  <th>
+    <slot></slot>
+    <slot name="actions" v-if="renderActionsTemplate"></slot>
+  </th>
 </template>
 
 <script>
+var $ = window.$;
+
 export default {
   name: 'DtColumn',
   props: {
@@ -31,13 +36,45 @@ export default {
     defaultContent: String,
     className: String
   },
+  data(){
+    return {
+      // A temporary hack to create the actual DOM of the action buttons if injected to its slot by the user.
+      // Which will be used in the actions column for each fetched datatable row.
+      renderActionsTemplate: true,
+      actions: []
+    };
+  },
+  methods: {
+    saveActions(){
+        var column = this;
+        this.$slots.actions.forEach(function(action){
+          column.actions.push($(action.elm));
+        });
+    },
+    renderActions(row){
+      var actions = [], element, idKey;
+      this.actions.forEach(function(action){
+        element = action.clone();
+        idKey = element.attr('data-id');
+        element.attr('data-id', row[(!idKey)? 'id' : idKey]);
+        actions.push($('<div/>').append(element).html());
+      });
+      return actions.join(' ');
+    }
+  },
   mounted(){
     var column = {};
     var props = ['data', 'render', 'name', 'searchable', 'orderable', 'visible', 'defaultContent', 'className', 'width'];
     for(var i in props)
       if(this.$props[props[i]] !== undefined)
         column[props[i]] = this.$props[props[i]];
+    if(this.$slots.actions !== undefined){
+        this.saveActions();
+        column.data = this.renderActions;
+    }
     this.$parent.columns.push(column);
+    // Removes the action column elements template form DOM after it's rendered.
+    this.renderActionsTemplate = false;
     this.$parent.setup();
   }
 }
